@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/shopbycategories"
+        android:title="Shop by Categories"
+        android:icon="@drawable/outline_category_24"/>
+
+    <item android:id="@+id/myorders"
+        android:title="My orders"
+        android:icon="@drawable/outline_access_time_24"/>
+
+    <item android:id="@+id/favourites"
+        android:title="Favourites"
+        android:icon="@drawable/baseline_favorite_border_24"/>
+
+    <item android:id="@+id/faqs"
+        android:title="FAQs"
+        android:icon="@drawable/outline_question_answer_24"/>
+
+    <item android:id="@+id/addresses"
+        android:title="Addresses"
+        android:icon="@drawable/outline_location_on_24"/>
+
+    <item android:id="@+id/savedcards"
+        android:title="Saved Cards"
+        android:icon="@drawable/outline_credit_card_24"/>
+
+    <item android:id="@+id/termsandconditions"
+        android:title="Terms and Conditions"
+        android:icon="@drawable/outline_credit_card_24"/>
+
+    <item android:id="@+id/privacypolicy"
+        android:title="Privacy Policy"
+        android:icon="@drawable/outline_privacy_tip_24"/>
+
+    <item android:id="@+id/logout"
+        android:title="Logout"
+        android:icon="@drawable/outline_logout_24"/>
+</menu>

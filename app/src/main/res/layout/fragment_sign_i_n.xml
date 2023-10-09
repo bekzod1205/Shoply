@@ -13,19 +13,20 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Log In"
-        android:textSize="24dp"
+        android:textColor="@color/blue"
+        android:textStyle="bold"
+        android:textSize="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="18dp"
-        android:textColorHint="@color/white"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="200dp"
         app:boxCornerRadiusBottomEnd="10dp"
         app:boxCornerRadiusBottomStart="10dp"
         app:boxCornerRadiusTopEnd="10dp"
@@ -38,18 +39,16 @@
             android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#32000000"
             android:hint="Username" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout2"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="18dp"
-        android:textColorHint="@color/white"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="32dp"
         app:boxCornerRadiusBottomEnd="10dp"
         app:boxCornerRadiusBottomStart="10dp"
         app:boxCornerRadiusTopEnd="10dp"
@@ -62,19 +61,18 @@
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#32000000"
             android:hint="Password" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/create"
+        android:id="@+id/login"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="18dp"
-        android:backgroundTint="#BF5AF2"
-        android:text="LogIn"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="90dp"
+        android:text="Log in"
+        android:backgroundTint="@color/blue"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -82,24 +80,27 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:gravity="center"
         android:text="Don't have an account ?"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.415"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create" />
+        app:layout_constraintTop_toBottomOf="@+id/login" />
 
     <TextView
-        android:id="@+id/signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
         android:text="Sign up"
-        android:textColor="#2196F3"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/create" />
-    
+        android:textColor="@color/blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/login" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
