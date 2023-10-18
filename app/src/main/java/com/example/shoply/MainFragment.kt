@@ -36,11 +36,11 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         var binding = FragmentMainBinding.inflate(layoutInflater)
-        binding.bottomNav.setOnItemSelectedListener {
-            when(it.itemId){
-                R.id.home ->
-            }
-        }
+//        binding.bottomNav.setOnItemSelectedListener {
+//            when(it.itemId){
+//                R.id.home ->
+//            }
+//        }
         return binding.root
     }
 
