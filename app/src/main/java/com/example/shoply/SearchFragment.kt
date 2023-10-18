@@ -1,10 +1,17 @@
 package com.example.shoply
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView.OnQueryTextListener
+import com.example.shoply.databinding.FragmentSearchBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,27 +40,94 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false)
+        val binding = FragmentSearchBinding.inflate(inflater, container, false)
+
+        val api = APIClient.getInstance().create(APIService::class.java)
+        binding.searchView.setOnQueryTextListener(object : OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText !=null) {
+                    api.searchByName(newText).enqueue(object : Callback<ProductList> {
+                        override fun onResponse( call: Call<ProductList>, response: Response<ProductList>) {
+                            if (response.isSuccessful) {
+                                val searchList = response.body()?.plist
+                                if (searchList != null) {
+                                    //binding.rvProducts.adapter = ProductAdapter(searchList, requireaContext())
+
+                                }
+                            } else {
+                                // Handle unsuccessful response here
+                            }
+                        }
+                        override fun onFailure(call: Call<ProductList>, t: Throwable) {
+                            Log.d(TAG, "onFailure: $t")
+                        }
+
+                    })
+                    return true
+                }
+                return false
+            }
+
+        })
+
+
+
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SearchFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SearchFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+//    api.getAllProducts().enqueue(object : retrofit2.Callback<ProductsData>{
+//        override fun onResponse(call: Call<ProductsData>, response: Response<ProductsData>) {
+//            Log.d("OOO", "onResponse: ${response.body()}")
+//        }
+//
+//        override fun onFailure(call: Call<ProductsData>, t: Throwable) {
+//            Log.d("OOO", "onFailure: $t")
+//        }
+//
+//    })
+
+    //Category Recycler
+//        val listt = mutableListOf<CategoryData>()
+//        api.getAllCategories().enqueue(object : retrofit2.Callback<List<String>>{
+//            override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
+//                if (response.isSuccessful && !response.body().isNullOrEmpty()){
+//                    for (i in 0 until response.body()!!.size){
+//                        listt.add(CategoryData(nomi = response.body()!![i].toString()))
+//                    }
+//                    binding.categoryRecycler.adapter = CategoryAdapter(listt, object : CategoryAdapter.OnPressed{
+//                        override fun onPressed(categoryData: CategoryData) {
+//                            Log.d("TAG", "onPressed: $listt")
+//                        }
+//                    })
+//                }
+//            }
+//            override fun onFailure(call: Call<List<String>>, t: Throwable) {
+//                Log.d("CategoryList", "onFailure: $t")
+//            }
+//
+//        })
+
+    //Products Recycler
+//        api.getProductsByCategory("laptops").enqueue(object : retrofit2.Callback<ProductsData>{
+//            override fun onResponse(call: Call<ProductsData>, response: Response<ProductsData>) {
+//                if (response.isSuccessful && response.body() != null){
+////                    val Smartphones = mutableListOf<SingleProductData>()
+////                    for (i in 0 until response.body()!!.productsList.size){
+////                        Smartphones.add(response.body()!!.productsList[i])
+////                    }
+////                    binding.ProductsRecycler.adapter = ProductAdapter(Smartphones)
+//                }
+//                Log.d("ProductRecycler", "onResponse: ${response.body()}")
+//            }
+//
+//            override fun onFailure(call: Call<ProductsData>, t: Throwable) {
+//                Log.d("ProductRecycler", "onResponse: $t")
+//            }
+//
+//        })
     }
-}
