@@ -36,7 +36,6 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
        var binding = FragmentHomeBinding.inflate(layoutInflater)
-        parentFragmentManager.beginTransaction().replace(binding.viewPager, ItemFragment())
         return binding.root
     }
 
