@@ -17,6 +17,12 @@ interface APIService {
     @GET("products/search")
     fun searchByName(@Query("q") name: String): Call<ProductList>
 
+    @GET("/products/categories")
+    fun getAllCategories(): Call<List<String>>
+
+    @GET("/products/category/{category}")
+    fun getProductsByCategory(@Path("category") category: String): Call<ProductList>
+
     @POST("/auth/login")
     fun login(@Body login: Login): Call<User>
 }
