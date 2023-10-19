@@ -9,7 +9,7 @@ import retrofit2.http.Query
 
 interface APIService {
     @GET("/products")
-    fun getAllProduct() : Call<List<ProductList>>
+    fun getAllProduct() : Call<ProductList>
 
     @GET("/products/{id}")
     fun getProduct(@Path("id") id: Int): Call<Product>

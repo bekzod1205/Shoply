@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentHostCallback
 import com.example.shoply.databinding.FragmentHomeBinding
 import com.google.android.material.navigation.NavigationBarItemView
+import retrofit2.Call
+import retrofit2.Response
+import javax.security.auth.callback.Callback
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

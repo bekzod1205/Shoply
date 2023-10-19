@@ -6,7 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.shoply.adapter.ProductsAdapter
 import com.example.shoply.databinding.FragmentItemBinding
+import retrofit2.Call
+import retrofit2.Response
+import javax.security.auth.callback.Callback
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,6 +40,18 @@ class ItemFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         var binding = FragmentItemBinding.inflate(layoutInflater)
+        val api = APIClient.getInstance().create(APIService::class.java)
+        api.getAllProduct().enqueue(object: Callback<ProductList>, retrofit2.Callback<ProductList> {
+            override fun onResponse(call: Call<ProductList>, response: Response<ProductList>) {
+                var products = response.body()!!.plist
+                binding.productsRv.adapter = ProductsAdapter(products)
+            }
+
+            override fun onFailure(call: Call<ProductList>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+        })
         return binding.root
     }
 
