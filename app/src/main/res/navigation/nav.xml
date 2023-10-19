@@ -3,11 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/itemSelected">
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.shoply.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/itemSelected"
+        android:name="com.example.shoply.ItemSelected"
+        android:label="fragment_item_selected"
+        tools:layout="@layout/fragment_item_selected" />
 </navigation>
