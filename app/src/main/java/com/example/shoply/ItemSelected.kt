@@ -5,9 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentManager
-import androidx.navigation.fragment.findNavController
-import com.example.shoply.databinding.FragmentMainBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -16,10 +13,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [MainFragment.newInstance] factory method to
+ * Use the [ItemSelected.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MainFragment : Fragment() {
+class ItemSelected : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -36,17 +33,8 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var binding = FragmentMainBinding.inflate(layoutInflater)
-        parentFragmentManager.beginTransaction().add(R.id.containerFragments, HomeFragment()).commit()
-        binding.bottomNav.setOnNavigationItemSelectedListener {
-            when(it.itemId){
-                R.id.home-> parentFragmentManager.beginTransaction().replace(R.id.containerFragments, HomeFragment()).commit()
-            }
-             true
-        }
-
-        var api = 
-        return binding.root
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_item_selected, container, false)
     }
 
     companion object {
@@ -56,12 +44,12 @@ class MainFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment MainFragment.
+         * @return A new instance of fragment ItemSelected.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            MainFragment().apply {
+            ItemSelected().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
