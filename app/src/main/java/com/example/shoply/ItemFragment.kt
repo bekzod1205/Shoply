@@ -1,6 +1,7 @@
 package com.example.shoply
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -41,14 +42,14 @@ class ItemFragment : Fragment() {
     ): View? {
         var binding = FragmentItemBinding.inflate(layoutInflater)
         val api = APIClient.getInstance().create(APIService::class.java)
-        api.getAllProduct().enqueue(object: Callback<ProductList>, retrofit2.Callback<ProductList> {
+        api.getAllProduct().enqueue(object: retrofit2.Callback<ProductList> {
             override fun onResponse(call: Call<ProductList>, response: Response<ProductList>) {
                 var products = response.body()!!.plist
                 binding.productsRv.adapter = ProductsAdapter(products)
             }
 
             override fun onFailure(call: Call<ProductList>, t: Throwable) {
-                TODO("Not yet implemented")
+                Log.d("TAG", "Error")
             }
 
         })

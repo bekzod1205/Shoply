@@ -41,7 +41,6 @@ class HomeFragment : Fragment() {
     ): View? {
        var binding = FragmentHomeBinding.inflate(layoutInflater)
         parentFragmentManager.beginTransaction().replace(R.id.viewPager, ItemFragment())
-
         return binding.root
     }
 
