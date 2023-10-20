@@ -1,24 +1,23 @@
 package com.example.shoply
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.shoply.adapter.ReviewAdapter
+import com.example.shoply.comment.Comment
+import com.example.shoply.comment.Commentdata
 import com.example.shoply.databinding.FragmentReviewsBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Reviews.newInstance] factory method to
- * create an instance of this fragment.
- */
 class Reviews : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
@@ -35,22 +34,29 @@ class Reviews : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentReviewsBinding.inflate(inflater,container,false)
+        var list = listOf<Comment>()
+        var adapter: ReviewAdapter
 
+        val api = APIClient.getInstance().create(APIService::class.java)
 
+        api.getCommentData().enqueue(object : Callback<Commentdata>{
+            override fun onResponse(call: Call<Commentdata>, response: Response<Commentdata>) {
+                Log.d("TAG", "onResponse: ${response.body()!!.comments}")
+                list = response.body()!!.comments
+                adapter = ReviewAdapter(list)
+                binding.recyclecomment.adapter = adapter
+            }
+
+            override fun onFailure(call: Call<Commentdata>, t: Throwable) {
+                Log.d("TAG", "onFailure: $t")
+            }
+
+        })
 
         return binding.root
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Reviews.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             Reviews().apply {

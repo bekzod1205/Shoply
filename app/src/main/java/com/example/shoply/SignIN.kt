@@ -1,11 +1,16 @@
 package com.example.shoply
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.shoply.databinding.FragmentSignINBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
@@ -28,10 +33,25 @@ class SignIN : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentSignINBinding.inflate(inflater,container,false)
+        val api = APIClient.getInstance().create(APIService::class.java)
+        var user:User
 
         binding.login.setOnClickListener {
             username = binding.username.text.toString()
             password = binding.password.text.toString()
+            val login = Login(username,password)
+            api.login(login).enqueue(object : Callback<User>{
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    user = response.body()!!
+
+
+                }
+
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                    Log.d("TAG", "onFailure: $t")
+                }
+            })
+
         }
 
 

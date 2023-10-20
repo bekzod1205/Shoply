@@ -9,6 +9,7 @@
     android:id="@+id/drlayout">
 
     <androidx.fragment.app.FragmentContainerView
+        android:layout_marginTop="70dp"
         android:id="@+id/fragmentContainerView"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
