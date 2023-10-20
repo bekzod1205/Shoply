@@ -45,7 +45,9 @@ class ItemFragment : Fragment() {
         api.getAllProduct().enqueue(object: retrofit2.Callback<ProductList> {
             override fun onResponse(call: Call<ProductList>, response: Response<ProductList>) {
                 var products = response.body()!!.plist
-                binding.productsRv.adapter = ProductsAdapter(products)
+                binding.productsRv.setHasFixedSize(true)
+                var adapter = ProductsAdapter(products)
+                binding.productsRv.adapter = adapter
             }
 
             override fun onFailure(call: Call<ProductList>, t: Throwable) {
@@ -57,15 +59,7 @@ class ItemFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ItemFragment.
-         */
-        // TODO: Rename and change types and number of parameters
+
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             ItemFragment().apply {
