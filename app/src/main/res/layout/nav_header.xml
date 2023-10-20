@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#EAE7CE">
+    android:background="@color/blue">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/imageView12"
@@ -12,7 +12,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="24dp"
-        android:backgroundTint="#03A4FA"
+        android:backgroundTint="@color/white"
         app:cardCornerRadius="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,11 +31,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:textSize="20sp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/imageView12"
         app:layout_constraintStart_toEndOf="@+id/imageView12"
         app:layout_constraintTop_toTopOf="@+id/imageView12"
         app:layout_constraintVertical_bias="0.0"
-        tools:text="User's name"
+        android:text="User's name"
         android:textStyle="bold"/>
 
     <TextView
@@ -43,7 +44,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        tools:text="phone number"
+        android:textColor="@color/white"
+        android:text="phone number"
         app:layout_constraintStart_toStartOf="@+id/user_name"
         app:layout_constraintTop_toBottomOf="@+id/user_name" />
 
