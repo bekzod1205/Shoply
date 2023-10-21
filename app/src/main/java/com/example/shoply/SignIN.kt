@@ -6,7 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import coil.load
+import com.example.shoply.databinding.ActivityMainBinding
 import com.example.shoply.databinding.FragmentSignINBinding
+import com.example.shoply.databinding.NavHeaderBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,8 +46,10 @@ class SignIN : Fragment() {
             api.login(login).enqueue(object : Callback<User>{
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     user = response.body()!!
-
-
+                    val binding_mainac = NavHeaderBinding.inflate(LayoutInflater.from(container?.context),container,false)
+                    binding_mainac.userName.text = user.firstName
+                    binding_mainac.userImage.load(user.image)
+                    binding_mainac.phoneNumber.text = user.email
                 }
 
                 override fun onFailure(call: Call<User>, t: Throwable) {
@@ -53,6 +58,7 @@ class SignIN : Fragment() {
             })
 
         }
+
 
 
         return binding.root
