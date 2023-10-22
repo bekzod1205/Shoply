@@ -56,6 +56,7 @@ class SearchFragment : Fragment() {
         binding.searchView.setOnQueryTextListener(object : OnQueryTextListener {
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText == searchLast) return false
+                else binding.notfound.visibility = View.VISIBLE
                 api.searchByName(newText!!).enqueue(object : Callback<ProductList>{
                     override fun onResponse(
                         call: Call<ProductList>,

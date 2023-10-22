@@ -1,11 +1,13 @@
 package com.example.shoply
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoply.adapter.ProductsAdapter
 import com.example.shoply.databinding.FragmentItemBinding
@@ -41,22 +43,25 @@ class ItemFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         var binding = FragmentItemBinding.inflate(layoutInflater)
+        binding.allProductsRv.layoutManager =
+        GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
         val api = APIClient.getInstance().create(APIService::class.java)
         api.getAllProduct().enqueue(object: retrofit2.Callback<ProductList> {
             override fun onResponse(call: Call<ProductList>, response: Response<ProductList>) {
                 var products = response.body()!!.plist
-                binding.productsRv.setHasFixedSize(true)
+
+                binding.allProductsRv.setHasFixedSize(true)
                 var adapter = ProductsAdapter(products,requireContext(),object:ProductsAdapter.ProductClicked{
                     override fun onClick(product: Product) {
                         TODO("Not yet implemented")
                     }
 
                 })
-                binding.productsRv.adapter = adapter
+                binding.allProductsRv.adapter = adapter
             }
 
             override fun onFailure(call: Call<ProductList>, t: Throwable) {
-                Log.d("TAG", "Error")
+                Log.d(TAG, "onFailure: $t")
             }
 
         })

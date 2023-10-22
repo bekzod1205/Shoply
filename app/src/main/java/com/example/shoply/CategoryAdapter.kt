@@ -60,7 +60,7 @@ class CategoryAdapter(private val categories: List<String>, private val context:
                     categoryClicked.onCLick(categories[position - 1])
                 }
             }
-            categoryRecyclerView.visibility = View.GONE
+
         }
     }
 
