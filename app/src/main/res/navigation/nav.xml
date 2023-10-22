@@ -20,10 +20,27 @@
         <action
             android:id="@+id/action_mainFragment_to_signIN"
             app:destination="@id/signIN" />
+        <action
+            android:id="@+id/action_mainFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/signIN"
         android:name="com.example.shoply.SignIN"
         android:label="fragment_sign_i_n"
         tools:layout="@layout/fragment_sign_i_n" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.shoply.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_itemSelected"
+            app:destination="@id/itemSelected" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemSelected"
+        android:name="com.example.shoply.ItemSelected"
+        android:label="fragment_item_selected"
+        tools:layout="@layout/fragment_item_selected" />
 </navigation>

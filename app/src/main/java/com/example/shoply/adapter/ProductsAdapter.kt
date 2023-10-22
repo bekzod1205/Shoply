@@ -1,5 +1,6 @@
 package com.example.shoply.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,7 @@ import com.example.shoply.ProductList
 import com.example.shoply.R
 import retrofit2.Call
 
-class ProductsAdapter(var products:List<Product>): RecyclerView.Adapter<ProductsAdapter.MyHolder>() {
+class ProductsAdapter(private var products:List<Product>, private val context: Context, private val productClicked: ProductClicked): RecyclerView.Adapter<ProductsAdapter.MyHolder>() {
     class MyHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
      var image:ImageView = itemView.findViewById(R.id.productImg)
      var title:TextView = itemView.findViewById(R.id.productName)
@@ -29,8 +30,16 @@ class ProductsAdapter(var products:List<Product>): RecyclerView.Adapter<Products
     }
 
     override fun onBindViewHolder(holder: MyHolder, position: Int) {
+        val product = products[position]
         holder.image.load(products[position].images[0])
         holder.title.text = products[position].title
         holder.price.text = products[position].price.toString()
+        holder.itemView.setOnClickListener {
+            productClicked.onClick(product)
+        }
+    }
+
+    interface ProductClicked{
+        fun onClick(product: Product)
     }
 }

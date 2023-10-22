@@ -46,7 +46,12 @@ class ItemFragment : Fragment() {
             override fun onResponse(call: Call<ProductList>, response: Response<ProductList>) {
                 var products = response.body()!!.plist
                 binding.productsRv.setHasFixedSize(true)
-                var adapter = ProductsAdapter(products)
+                var adapter = ProductsAdapter(products,requireContext(),object:ProductsAdapter.ProductClicked{
+                    override fun onClick(product: Product) {
+                        TODO("Not yet implemented")
+                    }
+
+                })
                 binding.productsRv.adapter = adapter
             }
 

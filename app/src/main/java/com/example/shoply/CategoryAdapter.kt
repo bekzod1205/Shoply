@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 
@@ -18,7 +19,7 @@ class CategoryAdapter(private val categories: List<String>, private val context:
     var current = 0
 
     inner class MyHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val cardView: MaterialCardView = itemView.findViewById(R.id.category_mcv)
+        val cardView: CardView = itemView.findViewById(R.id.category_item)
         val text: TextView = itemView.findViewById(R.id.category_name)
     }
 
