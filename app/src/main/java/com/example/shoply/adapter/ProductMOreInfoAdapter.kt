@@ -3,7 +3,6 @@ package com.example.shoply.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
@@ -11,7 +10,7 @@ import com.example.shoply.Product
 import com.example.shoply.R
 import com.example.shoply.databinding.FragmentItemSelectedBinding
 
-class ProductMoreInfoAdapter(var products: MutableList<Product>,var context: Context) : RecyclerView.Adapter<ProductMoreInfoAdapter.MyHolder>(), com.example.shoply.ItemTouchHelper {
+class ProductMoreInfoAdapter(var products: MutableList<Product>, var myProduct: MyProduct, var context: Context) : RecyclerView.Adapter<ProductMoreInfoAdapter.MyHolder>(), com.example.shoply.ItemTouchHelper {
     class MyHolder(binding: FragmentItemSelectedBinding) : RecyclerView.ViewHolder(binding.root) {
         var name = binding.name
         var img = binding.imageView
@@ -32,10 +31,15 @@ class ProductMoreInfoAdapter(var products: MutableList<Product>,var context: Con
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return products.size
+    }
+    interface MyProduct{
+        fun onItemClick(product: Product)
     }
 
-    override fun onBindViewHolder(holder: MyHolder, position: Int) {
+
+
+    override fun onBindViewHolder(holder: ProductMoreInfoAdapter.MyHolder, position: Int) {
         var product = products[position]
         holder.name.text = product.title
         holder.img.load(product.images) {
@@ -65,9 +69,9 @@ class ProductMoreInfoAdapter(var products: MutableList<Product>,var context: Con
 //            product.status = true
 //        }
 
-//        holder.itemView.setOnClickListener {
-//            myCountry.onItemClick(product)
-//        }
+        holder.itemView.setOnClickListener {
+            myProduct.onItemClick(product)
+        }
     }
 
     override fun onItemMove(fromPosition: Int, toPosition: Int) {
