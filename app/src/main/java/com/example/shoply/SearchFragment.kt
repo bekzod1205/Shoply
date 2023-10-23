@@ -91,7 +91,8 @@ class SearchFragment : Fragment() {
 
         })
 
-        binding.rvCategory.visibility = View.VISIBLE
+
+
         //Filter products
 
         binding.filterBtn.setOnClickListener {
@@ -99,7 +100,7 @@ class SearchFragment : Fragment() {
                 binding.rvCategory.visibility = View.GONE
             }
             else {
-
+                binding.rvCategory.visibility = View.VISIBLE
             }
         }
 
@@ -179,18 +180,7 @@ class SearchFragment : Fragment() {
 
 
     }
-//    fun  toInfoScreen (productList: List<Product>){
-//          binding.rvAllProducts.adapter =
-//                ProductsAdapter(productList, requireContext(), object : ProductsAdapter.ProductPressed {
-//                    override fun onPressed(product: Product) {
-//                        val bundle = Bundle()
-//                        bundle.putSerializable("product", product)
-//                        findNavController().navigate(
-//                            R.id.action_homeFragment_to_productFragment,
-//                            bundle
-//                        )
-//                    }
-//                })
-//    }
+
+
 
     }
