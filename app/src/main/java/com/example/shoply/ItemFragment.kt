@@ -48,16 +48,16 @@ class ItemFragment : Fragment() {
         val api = APIClient.getInstance().create(APIService::class.java)
         api.getAllProduct().enqueue(object: retrofit2.Callback<ProductList> {
             override fun onResponse(call: Call<ProductList>, response: Response<ProductList>) {
-                var products = response.body()!!.plist
+                var products = response.body()?.plist!!
 
-                binding.allProductsRv.setHasFixedSize(true)
-                var adapter = ProductsAdapter(products,requireContext(),object:ProductsAdapter.ProductClicked{
+               // binding.allProductsRv.setHasFixedSize(true)
+                binding.allProductsRv.adapter  = ProductsAdapter(products,requireContext(),object:ProductsAdapter.ProductClicked{
                     override fun onClick(product: Product) {
                         TODO("Not yet implemented")
                     }
 
                 })
-                binding.allProductsRv.adapter = adapter
+
             }
 
             override fun onFailure(call: Call<ProductList>, t: Throwable) {
