@@ -1,23 +1,31 @@
 package com.example.shoply.adapter
 
+
+import android.R.attr.name
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.fragment.app.FragmentActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.shoply.Product
 import com.example.shoply.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-
-
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlin.math.roundToInt
 
-class ProductsAdapter(private var products:MutableList<Product>,private val productClicked: ProductClicked) : RecyclerView.Adapter<ProductsAdapter.MyHolder>() {
+
+class ProductsAdapter(
+    private var products: MutableList<Product>,
+    private val productClicked: ProductClicked,
+) : RecyclerView.Adapter<ProductsAdapter.MyHolder>() {
     class MyHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val image: ImageView = itemView.findViewById(R.id.product_item_image)
         val title: TextView = itemView.findViewById(R.id.product_item_title)
@@ -25,6 +33,7 @@ class ProductsAdapter(private var products:MutableList<Product>,private val prod
         val price: TextView = itemView.findViewById(R.id.product_item_price)
         val rating: TextView = itemView.findViewById(R.id.product_item_rating)
         val cart: FloatingActionButton = itemView.findViewById(R.id.product_item_cart_fab)
+        val fav: FloatingActionButton = itemView.findViewById(R.id.fav)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
@@ -44,6 +53,7 @@ class ProductsAdapter(private var products:MutableList<Product>,private val prod
         holder.rating.text = ((product.rating * 10).roundToInt().toDouble() / 10).toString()
         holder.title.text = product.title
         holder.price.text = product.price.toString() + " $"
+
 
         holder.itemView.setOnClickListener {
             productClicked.onClick(product)

@@ -1,6 +1,7 @@
 package com.example.shoply
 
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,6 +12,7 @@ import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.example.shoply.adapter.ProductsAdapter
 import com.example.shoply.databinding.FragmentHomeBinding
+import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Response
 
@@ -55,6 +57,8 @@ class HomeFragment : Fragment() {
 //                }
 //
 //            })
+
+
         products = mutableListOf()
         val api = APIClient.getInstance().create(APIService::class.java)
         api.getAllProduct().enqueue(object: retrofit2.Callback<ProductList> {

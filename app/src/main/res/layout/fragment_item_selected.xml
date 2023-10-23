@@ -2,20 +2,20 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/itemSelected"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/itemSelected"
     tools:context=".ItemSelected">
 
-<!--        <androidx.appcompat.widget.AppCompatImageButton-->
-<!--            android:id="@+id/back_from_single_product"-->
-<!--            android:layout_width="40dp"-->
-<!--            android:layout_height="40dp"-->
-<!--            android:layout_margin="10dp"-->
-<!--            android:backgroundTint="@color/white"-->
-<!--            android:src="@drawable/back_button"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"/>-->
+    <!--        <androidx.appcompat.widget.AppCompatImageButton-->
+    <!--            android:id="@+id/back_from_single_product"-->
+    <!--            android:layout_width="40dp"-->
+    <!--            android:layout_height="40dp"-->
+    <!--            android:layout_margin="10dp"-->
+    <!--            android:backgroundTint="@color/white"-->
+    <!--            android:src="@drawable/back_button"-->
+    <!--            app:layout_constraintTop_toTopOf="parent"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"/>-->
 
 
     <androidx.viewpager2.widget.ViewPager2
@@ -34,53 +34,53 @@
 
 
     <!--    <ScrollView-->
-<!--        android:id="@+id/scrollView2"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="100dp"-->
-<!--        android:layout_marginTop="28dp"-->
-<!--        android:background="@drawable/background"-->
-<!--        android:orientation="horizontal"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/price"-->
-<!--        tools:ignore="MissingConstraints">-->
+    <!--        android:id="@+id/scrollView2"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="100dp"-->
+    <!--        android:layout_marginTop="28dp"-->
+    <!--        android:background="@drawable/background"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.0"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/price"-->
+    <!--        tools:ignore="MissingConstraints">-->
 
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="100dp">-->
+    <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="100dp">-->
 
-<!--            <androidx.recyclerview.widget.RecyclerView-->
-<!--                android:id="@+id/all_products_rv"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="horizontal"-->
-<!--                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintHorizontal_bias="0.0"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                tools:listitem="@layout/image_item" />-->
+    <!--            <androidx.recyclerview.widget.RecyclerView-->
+    <!--                android:id="@+id/all_products_rv"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:orientation="horizontal"-->
+    <!--                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"-->
+    <!--                app:layout_constraintEnd_toEndOf="parent"-->
+    <!--                app:layout_constraintHorizontal_bias="0.0"-->
+    <!--                app:layout_constraintStart_toStartOf="parent"-->
+    <!--                tools:listitem="@layout/image_item" />-->
 
-<!--&lt;!&ndash;            <ImageView&ndash;&gt;-->
-<!--&lt;!&ndash;                android:layout_width="100dp"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:layout_height="100dp"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:src="@drawable/img"&ndash;&gt;-->
-<!--&lt;!&ndash;                app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
-<!--&lt;!&ndash;                app:layout_constraintStart_toEndOf="@+id/imageView5"&ndash;&gt;-->
-<!--&lt;!&ndash;                app:layout_constraintTop_toTopOf="parent"&ndash;&gt;-->
-<!--&lt;!&ndash;                app:layout_constraintVertical_bias="0.0" />&ndash;&gt;-->
+    <!--&lt;!&ndash;            <ImageView&ndash;&gt;-->
+    <!--&lt;!&ndash;                android:layout_width="100dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;                android:layout_height="100dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;                android:src="@drawable/img"&ndash;&gt;-->
+    <!--&lt;!&ndash;                app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;                app:layout_constraintStart_toEndOf="@+id/imageView5"&ndash;&gt;-->
+    <!--&lt;!&ndash;                app:layout_constraintTop_toTopOf="parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;                app:layout_constraintVertical_bias="0.0" />&ndash;&gt;-->
 
-<!--&lt;!&ndash;            <ImageView&ndash;&gt;-->
-<!--&lt;!&ndash;                android:id="@+id/imageView5"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:layout_width="100dp"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:layout_height="100dp"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:src="@drawable/img"&ndash;&gt;-->
-<!--&lt;!&ndash;                app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
-<!--&lt;!&ndash;                app:layout_constraintStart_toEndOf="@+id/imageView6"&ndash;&gt;-->
-<!--&lt;!&ndash;                app:layout_constraintTop_toTopOf="parent"&ndash;&gt;-->
-<!--&lt;!&ndash;                app:layout_constraintVertical_bias="0.0" />&ndash;&gt;-->
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
-<!--    </ScrollView>-->
+    <!--&lt;!&ndash;            <ImageView&ndash;&gt;-->
+    <!--&lt;!&ndash;                android:id="@+id/imageView5"&ndash;&gt;-->
+    <!--&lt;!&ndash;                android:layout_width="100dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;                android:layout_height="100dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;                android:src="@drawable/img"&ndash;&gt;-->
+    <!--&lt;!&ndash;                app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;                app:layout_constraintStart_toEndOf="@+id/imageView6"&ndash;&gt;-->
+    <!--&lt;!&ndash;                app:layout_constraintTop_toTopOf="parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;                app:layout_constraintVertical_bias="0.0" />&ndash;&gt;-->
+    <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+    <!--    </ScrollView>-->
 
     <TextView
         android:layout_width="wrap_content"
@@ -210,10 +210,10 @@
         tools:ignore="HardcodedText" />
 
     <Button
+        android:id="@+id/read_reviews"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:id="@+id/read_reviews"
-        android:background="@drawable/rating_box"
+        android:background="@drawable/button_background_1"
         android:text="Read reviews"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -227,7 +227,7 @@
         android:id="@+id/add_to_cart"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:background="@drawable/rating_box"
+        android:background="@drawable/button_background"
         android:text="Add to cart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -241,8 +241,9 @@
         android:id="@+id/buy_now"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:background="@drawable/rating_box"
+        android:background="@drawable/button_background"
         android:text="Buy now"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.39"
