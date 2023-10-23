@@ -1,5 +1,5 @@
 package com.example.shoply
 
 data class ProductList(
-    var plist: List<Product>
+    var products: MutableList<Product>
 )

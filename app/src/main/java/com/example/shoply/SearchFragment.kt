@@ -56,14 +56,14 @@ class SearchFragment : Fragment() {
         binding.searchView.setOnQueryTextListener(object : OnQueryTextListener {
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText == searchLast) return false
-                else binding.notfound.visibility = View.VISIBLE
+              //  else binding.notfound.visibility = View.VISIBLE
                 api.searchByName(newText!!).enqueue(object : Callback<ProductList>{
                     override fun onResponse(
                         call: Call<ProductList>,
                         response: Response<ProductList>
                     ) {
-                        val products = response.body()!!.plist
-                        binding.rvAllProducts.adapter = ProductsAdapter(products, requireContext(), object : ProductsAdapter.ProductClicked {
+                        val products = response.body()?.products!!
+                        binding.rvAllProducts.adapter = ProductsAdapter(products, object : ProductsAdapter.ProductClicked {
                             override fun onClick(product: Product) {
                                 val bundle = Bundle()
                                 bundle.putSerializable("product", product)
@@ -120,8 +120,8 @@ class SearchFragment : Fragment() {
                                         call: Call<ProductList>,
                                         response: Response<ProductList>
                                     ) {
-                                        val products = response.body()!!.plist
-                                        binding.rvAllProducts.adapter = ProductsAdapter(products, requireContext(), object : ProductsAdapter.ProductClicked {
+                                        val products = response.body()?.products!!
+                                        binding.rvAllProducts.adapter = ProductsAdapter(products, object : ProductsAdapter.ProductClicked {
                                             override fun onClick(product: Product) {
                                                 val bundle = Bundle()
                                                 bundle.putSerializable("product", product)
@@ -145,8 +145,8 @@ class SearchFragment : Fragment() {
                                         call: Call<ProductList>,
                                         response: Response<ProductList>
                                     ) {
-                                        val products = response.body()?.plist!!
-                                        binding.rvAllProducts.adapter = ProductsAdapter(products, requireContext(), object : ProductsAdapter.ProductClicked {
+                                        val products = response.body()?.products!!
+                                        binding.rvAllProducts.adapter = ProductsAdapter(products,  object : ProductsAdapter.ProductClicked {
                                             override fun onClick(product: Product) {
                                                 val bundle = Bundle()
                                                 bundle.putSerializable("product", product)
