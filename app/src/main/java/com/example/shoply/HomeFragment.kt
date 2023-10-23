@@ -7,13 +7,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentHostCallback
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
+import com.example.shoply.adapter.ProductMoreInfoAdapter
 import com.example.shoply.adapter.ProductsAdapter
 import com.example.shoply.databinding.FragmentHomeBinding
-import com.google.android.material.navigation.NavigationBarItemView
 import retrofit2.Call
 import retrofit2.Response
-import javax.security.auth.callback.Callback
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -73,6 +73,17 @@ class HomeFragment : Fragment() {
                 Log.d(TAG, "onFailure: $t")
             }
         })
+
+
+        var adapter = ProductMoreInfoAdapter(products, object : ProductMoreInfoAdapter.MyProduct {
+            override fun onItemClick(product: Product) {
+                val bundle = bundleOf("product" to product)
+                findNavController().navigate(R.id.action_homeFragment_to_itemSelected, bundle)
+            }
+
+        }, requireActivity())
+        binding.allProductsRv.adapter = adapter
+
 
         return binding.root
     }
