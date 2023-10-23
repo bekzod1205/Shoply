@@ -7,13 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentHostCallback
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import com.example.shoply.adapter.ProductsAdapter
 import com.example.shoply.databinding.FragmentHomeBinding
-import com.google.android.material.navigation.NavigationBarItemView
 import retrofit2.Call
 import retrofit2.Response
-import javax.security.auth.callback.Callback
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,19 +59,27 @@ class HomeFragment : Fragment() {
         val api = APIClient.getInstance().create(APIService::class.java)
         api.getAllProduct().enqueue(object: retrofit2.Callback<ProductList> {
             override fun onResponse(call: Call<ProductList>, response: Response<ProductList>) {
-           var  products = response.body()?.products!!
+                var  products = response.body()?.products!!
                 binding.allProductsRv.adapter = ProductsAdapter(products, object : ProductsAdapter.ProductClicked{
                     override fun onClick(product: Product) {
-                        TODO("Not yet implemented")
+                        var bundle = Bundle()
+                        var fragment= ItemSelected()
+                        bundle.putSerializable("item", product)
+                        fragment.arguments = bundle
+                        parentFragmentManager.beginTransaction()
+                            .replace(R.id.containerFragments, fragment)
+                            .commit()
                     }
+                })
 
-                } )
             }
 
             override fun onFailure(call: Call<ProductList>, t: Throwable) {
                 Log.d(TAG, "onFailure: $t")
             }
         })
+
+
 
         return binding.root
     }
