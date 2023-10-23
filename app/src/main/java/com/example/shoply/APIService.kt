@@ -1,5 +1,6 @@
 package com.example.shoply
 
+import com.example.shoply.comment.Commentdata
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -25,4 +26,7 @@ interface APIService {
 
     @POST("/auth/login")
     fun login(@Body login: Login): Call<User>
+
+    @GET("/comments")
+    fun getCommentData():Call<Commentdata>
 }

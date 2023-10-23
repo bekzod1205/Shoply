@@ -45,7 +45,9 @@ class MainFragment : Fragment() {
              true
         }
 
-        var api = 
+        binding.search.setOnClickListener {
+            parentFragmentManager.beginTransaction().replace(R.id.containerFragments, SearchFragment()).commit()
+        }
         return binding.root
     }
 

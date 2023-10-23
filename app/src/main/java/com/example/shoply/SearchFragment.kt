@@ -11,7 +11,9 @@ import android.widget.SearchView.OnQueryTextListener
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.shoply.adapter.ProductsAdapter
 import com.example.shoply.databinding.FragmentSearchBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -44,19 +46,32 @@ class SearchFragment : Fragment() {
         binding.rvAllProducts.layoutManager =
             GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
 
+        binding.rvCategory.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.rvAllProducts.setHasFixedSize(true)
+        binding.rvCategory.setHasFixedSize(true)
         val api = APIClient.getInstance().create(APIService::class.java)
 
         // Search products
         binding.searchView.setOnQueryTextListener(object : OnQueryTextListener {
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText == searchLast) return false
+                else binding.notfound.visibility = View.VISIBLE
                 api.searchByName(newText!!).enqueue(object : Callback<ProductList>{
                     override fun onResponse(
                         call: Call<ProductList>,
                         response: Response<ProductList>
                     ) {
                         val products = response.body()!!.plist
-                       // binding.rvAllProducts.adapter = ProductsAdapter(products, requireContext(), )
+                        binding.rvAllProducts.adapter = ProductsAdapter(products, requireContext(), object : ProductsAdapter.ProductClicked {
+                            override fun onClick(product: Product) {
+                                val bundle = Bundle()
+                                bundle.putSerializable("product", product)
+                                findNavController().navigate(
+                                    R.id.action_searchFragment_to_itemSelected,
+                                    bundle)
+                            }
+                        })
 
                     }
 
@@ -76,7 +91,7 @@ class SearchFragment : Fragment() {
 
         })
 
-
+        binding.rvCategory.visibility = View.VISIBLE
         //Filter products
 
         binding.filterBtn.setOnClickListener {
@@ -84,7 +99,7 @@ class SearchFragment : Fragment() {
                 binding.rvCategory.visibility = View.GONE
             }
             else {
-                binding.rvCategory.visibility = View.VISIBLE
+
             }
         }
 
@@ -106,8 +121,18 @@ class SearchFragment : Fragment() {
                                         response: Response<ProductList>
                                     ) {
                                         val products = response.body()!!.plist
-//                                        changeProductsAdapter(products)
+                                        binding.rvAllProducts.adapter = ProductsAdapter(products, requireContext(), object : ProductsAdapter.ProductClicked {
+                                            override fun onClick(product: Product) {
+                                                val bundle = Bundle()
+                                                bundle.putSerializable("product", product)
+                                                findNavController().navigate(
+                                                    R.id.action_searchFragment_to_itemSelected,
+                                                    bundle)
+                                            }
+                                        })
+
                                     }
+
 
                                     override fun onFailure(call: Call<ProductList>, t: Throwable) {
                                         Log.d("TAG", "$t")
@@ -121,7 +146,17 @@ class SearchFragment : Fragment() {
                                         response: Response<ProductList>
                                     ) {
                                         val products = response.body()?.plist!!
-                                        // changeProductsAdapter(products)
+                                        binding.rvAllProducts.adapter = ProductsAdapter(products, requireContext(), object : ProductsAdapter.ProductClicked {
+                                            override fun onClick(product: Product) {
+                                                val bundle = Bundle()
+                                                bundle.putSerializable("product", product)
+                                                findNavController().navigate(
+                                                    R.id.action_searchFragment_to_itemSelected,
+                                                    bundle)
+                                            }
+                                        })
+
+
                                     }
 
                                     override fun onFailure(call: Call<ProductList>, t: Throwable) {

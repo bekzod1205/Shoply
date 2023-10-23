@@ -1,12 +1,19 @@
 package com.example.shoply
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.shoply.adapter.ProductsAdapter
 import com.example.shoply.databinding.FragmentItemBinding
+import retrofit2.Call
+import retrofit2.Response
+import javax.security.auth.callback.Callback
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,19 +43,33 @@ class ItemFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         var binding = FragmentItemBinding.inflate(layoutInflater)
+        binding.allProductsRv.layoutManager =
+        GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
+        val api = APIClient.getInstance().create(APIService::class.java)
+        api.getAllProduct().enqueue(object: retrofit2.Callback<ProductList> {
+            override fun onResponse(call: Call<ProductList>, response: Response<ProductList>) {
+                var products = response.body()?.plist!!
+
+               // binding.allProductsRv.setHasFixedSize(true)
+                binding.allProductsRv.adapter  = ProductsAdapter(products,requireContext(),object:ProductsAdapter.ProductClicked{
+                    override fun onClick(product: Product) {
+                        TODO("Not yet implemented")
+                    }
+
+                })
+
+            }
+
+            override fun onFailure(call: Call<ProductList>, t: Throwable) {
+                Log.d(TAG, "onFailure: $t")
+            }
+
+        })
         return binding.root
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ItemFragment.
-         */
-        // TODO: Rename and change types and number of parameters
+
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             ItemFragment().apply {
