@@ -1,14 +1,17 @@
 package com.example.shoply
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.example.shoply.adapter.ViewPagerAdapter
 import com.example.shoply.databinding.FragmentItemSelectedBinding
-
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 
 class ItemSelected : Fragment() {
@@ -21,6 +24,9 @@ class ItemSelected : Fragment() {
     ): View? {
 
         binding = FragmentItemSelectedBinding.inflate(inflater, container, false)
+        val activity: AppCompatActivity = activity as AppCompatActivity
+        val cache = activity.getSharedPreferences("Cache", Context.MODE_PRIVATE)
+        val str = cache.getString("User","")
         var item = arguments?.getSerializable("item") as Product
         binding.productImageVp.adapter = ViewPagerAdapter(
             item!!.images
@@ -33,7 +39,12 @@ class ItemSelected : Fragment() {
         binding.rating.text = item!!.rating.toString()
 
         binding.buyNow.setOnClickListener {
-            findNavController().navigate(R.id.action_itemSelected_to_signIN)
+            if (str.isNullOrEmpty())
+            parentFragmentManager.beginTransaction().replace(R.id.containerFragments,SignIN.newInstance(item,"")).commit()
+            else parentFragmentManager.beginTransaction().replace(R.id.containerFragments,OrderFragment.newInstance(item,"")).commit()
+        }
+        binding.readReviews.setOnClickListener {
+            parentFragmentManager.beginTransaction().replace(R.id.containerFragments,Reviews()).commit()
         }
         return binding.root
     }

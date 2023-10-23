@@ -22,14 +22,16 @@ private const val ARG_PARAM2 = "param2"
  */
 class OrderFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
+    private var param1: Product? = null
     private var param2: String? = null
+    val list = mutableListOf<Product>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
+            param1 = it.getSerializable(ARG_PARAM1) as Product
             param2 = it.getString(ARG_PARAM2)
+            list.add(param1!!)
         }
     }
 
@@ -38,7 +40,7 @@ class OrderFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentOrderBinding.inflate(inflater, container, false)
-        val list = mutableListOf<Product>()
+
         if (list.isEmpty()) {
             binding.linearLayout.visibility = View.VISIBLE
             binding.constraint.visibility = View.INVISIBLE
@@ -67,10 +69,10 @@ class OrderFragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(param1: Product, param2: String) =
             OrderFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
+                    putSerializable(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
                 }
             }

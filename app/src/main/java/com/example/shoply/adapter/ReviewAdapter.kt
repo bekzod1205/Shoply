@@ -24,6 +24,6 @@ class ReviewAdapter(val list: List<Comment>):RecyclerView.Adapter<ReviewAdapter.
     override fun onBindViewHolder(holder: ReviewHolder, position: Int) {
         val comment = list[position]
         holder.message.text = comment.body
-        holder.sender.text = comment.user.firstName
+        holder.sender.text = comment.user.username
     }
 }
