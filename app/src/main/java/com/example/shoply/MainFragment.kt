@@ -41,6 +41,7 @@ class MainFragment : Fragment() {
         binding.bottomNav.setOnNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.home-> parentFragmentManager.beginTransaction().replace(R.id.containerFragments, HomeFragment()).commit()
+                R.id.order-> parentFragmentManager.beginTransaction().replace(R.id.containerFragments, OrderFragment()).commit()
             }
              true
         }

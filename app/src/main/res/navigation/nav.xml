@@ -18,17 +18,12 @@
             android:id="@+id/action_mainFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
         <action
-            android:id="@+id/action_mainFragment_to_signIN"
-            app:destination="@id/signIN" />
-        <action
             android:id="@+id/action_mainFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_orderFragment"
+            app:destination="@id/orderFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/signIN"
-        android:name="com.example.shoply.SignIN"
-        android:label="fragment_sign_i_n"
-        tools:layout="@layout/fragment_sign_i_n" />
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.shoply.SearchFragment"
@@ -43,4 +38,13 @@
         android:name="com.example.shoply.ItemSelected"
         android:label="fragment_item_selected"
         tools:layout="@layout/fragment_item_selected" />
+    <fragment
+        android:id="@+id/orderFragment"
+        android:name="com.example.shoply.OrderFragment"
+        android:label="fragment_order"
+        tools:layout="@layout/fragment_order" >
+        <action
+            android:id="@+id/action_orderFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>

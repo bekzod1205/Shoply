@@ -5,6 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.example.shoply.adapter.OrderAdapter
+import com.example.shoply.databinding.FragmentMainBinding
+import com.example.shoply.databinding.FragmentOrderBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,9 +36,24 @@ class OrderFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_order, container, false)
+    ): View {
+        val binding = FragmentOrderBinding.inflate(inflater, container, false)
+        val list = mutableListOf<Product>()
+        if (list.isEmpty()) {
+            binding.linearLayout.visibility = View.VISIBLE
+            binding.constraint.visibility = View.INVISIBLE
+        } else {
+            binding.linearLayout.visibility = View.INVISIBLE
+            binding.constraint.visibility = View.VISIBLE
+            val adapter = OrderAdapter(list)
+            binding.orderRv.adapter = adapter
+        }
+
+
+        binding.start.setOnClickListener {
+            parentFragmentManager.beginTransaction().replace(R.id.containerFragments,HomeFragment()).commit()
+        }
+        return binding.root
     }
 
     companion object {

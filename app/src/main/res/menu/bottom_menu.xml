@@ -9,8 +9,13 @@
         android:icon="@drawable/baseline_shopping_bag_24"
         android:title="Savat" />
     <item
+        android:id="@+id/order"
+        android:icon="@drawable/baseline_access_time_24"
+        android:title="Shaxsiy kabinet" />
+    <item
         android:id="@+id/profile"
         android:icon="@drawable/person_icon"
         android:title="Shaxsiy kabinet" />
+
 
 </menu>
