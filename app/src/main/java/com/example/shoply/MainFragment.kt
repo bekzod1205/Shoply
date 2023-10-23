@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.fragment.findNavController
 import com.example.shoply.databinding.FragmentMainBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -36,11 +37,15 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         var binding = FragmentMainBinding.inflate(layoutInflater)
-//        binding.bottomNav.setOnItemSelectedListener {
-//            when(it.itemId){
-//                R.id.home ->
-//            }
-//        }
+        parentFragmentManager.beginTransaction().add(R.id.containerFragments, HomeFragment()).commit()
+        binding.bottomNav.setOnNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.home-> parentFragmentManager.beginTransaction().replace(R.id.containerFragments, HomeFragment()).commit()
+            }
+             true
+        }
+
+        var api = 
         return binding.root
     }
 

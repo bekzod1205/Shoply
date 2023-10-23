@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav"
-    app:startDestination="@id/itemSelected">
+    app:startDestination="@id/mainFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -11,8 +11,19 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
-        android:id="@+id/itemSelected"
-        android:name="com.example.shoply.ItemSelected"
-        android:label="fragment_item_selected"
-        tools:layout="@layout/fragment_item_selected" />
+        android:id="@+id/mainFragment"
+        android:name="com.example.shoply.MainFragment"
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_signIN"
+            app:destination="@id/signIN" />
+    </fragment>
+    <fragment
+        android:id="@+id/signIN"
+        android:name="com.example.shoply.SignIN"
+        android:label="fragment_sign_i_n"
+        tools:layout="@layout/fragment_sign_i_n" />
 </navigation>

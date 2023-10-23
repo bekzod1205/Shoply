@@ -8,6 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView.OnQueryTextListener
+import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.shoply.databinding.FragmentSearchBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,110 +28,134 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class SearchFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+   //lateinit var binding = FragmentSearchBinding
+    var searchLast = ""
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+
+
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentSearchBinding.inflate(inflater, container, false)
+       var  binding = FragmentSearchBinding.inflate(inflater, container, false)
+        binding.rvAllProducts.layoutManager =
+            GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
 
         val api = APIClient.getInstance().create(APIService::class.java)
+
+        // Search products
         binding.searchView.setOnQueryTextListener(object : OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText == searchLast) return false
+                api.searchByName(newText!!).enqueue(object : Callback<ProductList>{
+                    override fun onResponse(
+                        call: Call<ProductList>,
+                        response: Response<ProductList>
+                    ) {
+                        val products = response.body()!!.plist
+                       // binding.rvAllProducts.adapter = ProductsAdapter(products, requireContext(), )
+
+                    }
+
+                    override fun onFailure(call: Call<ProductList>, t: Throwable) {
+                        Log.d("TAG", "$t")
+                    }
+
+                })
+                searchLast = newText
+
                 return true
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText !=null) {
-                    api.searchByName(newText).enqueue(object : Callback<ProductList> {
-                        override fun onResponse( call: Call<ProductList>, response: Response<ProductList>) {
-                            if (response.isSuccessful) {
-                                val searchList = response.body()?.plist
-                                if (searchList != null) {
-                                    //binding.rvProducts.adapter = ProductAdapter(searchList, requireaContext())
-
-                                }
-                            } else {
-                                // Handle unsuccessful response here
-                            }
-                        }
-                        override fun onFailure(call: Call<ProductList>, t: Throwable) {
-                            Log.d(TAG, "onFailure: $t")
-                        }
-
-                    })
-                    return true
-                }
-                return false
+            override fun onQueryTextSubmit(newText: String?): Boolean {
+                return true
             }
 
         })
 
 
+        //Filter products
 
+        binding.filterBtn.setOnClickListener {
+            if (binding.rvCategory.isVisible){
+                binding.rvCategory.visibility = View.GONE
+            }
+            else {
+                binding.rvCategory.visibility = View.VISIBLE
+            }
+        }
+
+
+        //Get products by categories
+        api.getAllCategories().enqueue(object : Callback<List<String>> {
+            override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
+                val categories = response.body()!!
+                binding.rvCategory.adapter = CategoryAdapter(
+                    categories,
+                    requireContext(),
+                    binding.rvCategory,
+                    object : CategoryAdapter.OnCLick {
+                        override fun onCLick(category: String) {
+                            if (category == "") {
+                                api.getAllProduct().enqueue(object : Callback<ProductList>{
+                                    override fun onResponse(
+                                        call: Call<ProductList>,
+                                        response: Response<ProductList>
+                                    ) {
+                                        val products = response.body()!!.plist
+//                                        changeProductsAdapter(products)
+                                    }
+
+                                    override fun onFailure(call: Call<ProductList>, t: Throwable) {
+                                        Log.d("TAG", "$t")
+                                    }
+
+                                })
+                            } else {
+                                api.getProductsByCategory(category).enqueue(object : Callback<ProductList> {
+                                    override fun onResponse(
+                                        call: Call<ProductList>,
+                                        response: Response<ProductList>
+                                    ) {
+                                        val products = response.body()?.plist!!
+                                        // changeProductsAdapter(products)
+                                    }
+
+                                    override fun onFailure(call: Call<ProductList>, t: Throwable) {
+                                        Log.d("TAG", "$t")
+                                    }
+                                })
+                            }
+                        }
+
+                    })
+            }
+
+            override fun onFailure(call: Call<List<String>>, t: Throwable) {
+
+            }
+
+        })
 
         return binding.root
+
+
     }
-
-//    api.getAllProducts().enqueue(object : retrofit2.Callback<ProductsData>{
-//        override fun onResponse(call: Call<ProductsData>, response: Response<ProductsData>) {
-//            Log.d("OOO", "onResponse: ${response.body()}")
-//        }
-//
-//        override fun onFailure(call: Call<ProductsData>, t: Throwable) {
-//            Log.d("OOO", "onFailure: $t")
-//        }
-//
-//    })
-
-    //Category Recycler
-//        val listt = mutableListOf<CategoryData>()
-//        api.getAllCategories().enqueue(object : retrofit2.Callback<List<String>>{
-//            override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
-//                if (response.isSuccessful && !response.body().isNullOrEmpty()){
-//                    for (i in 0 until response.body()!!.size){
-//                        listt.add(CategoryData(nomi = response.body()!![i].toString()))
+//    fun  toInfoScreen (productList: List<Product>){
+//          binding.rvAllProducts.adapter =
+//                ProductsAdapter(productList, requireContext(), object : ProductsAdapter.ProductPressed {
+//                    override fun onPressed(product: Product) {
+//                        val bundle = Bundle()
+//                        bundle.putSerializable("product", product)
+//                        findNavController().navigate(
+//                            R.id.action_homeFragment_to_productFragment,
+//                            bundle
+//                        )
 //                    }
-//                    binding.categoryRecycler.adapter = CategoryAdapter(listt, object : CategoryAdapter.OnPressed{
-//                        override fun onPressed(categoryData: CategoryData) {
-//                            Log.d("TAG", "onPressed: $listt")
-//                        }
-//                    })
-//                }
-//            }
-//            override fun onFailure(call: Call<List<String>>, t: Throwable) {
-//                Log.d("CategoryList", "onFailure: $t")
-//            }
-//
-//        })
+//                })
+//    }
 
-    //Products Recycler
-//        api.getProductsByCategory("laptops").enqueue(object : retrofit2.Callback<ProductsData>{
-//            override fun onResponse(call: Call<ProductsData>, response: Response<ProductsData>) {
-//                if (response.isSuccessful && response.body() != null){
-////                    val Smartphones = mutableListOf<SingleProductData>()
-////                    for (i in 0 until response.body()!!.productsList.size){
-////                        Smartphones.add(response.body()!!.productsList[i])
-////                    }
-////                    binding.ProductsRecycler.adapter = ProductAdapter(Smartphones)
-//                }
-//                Log.d("ProductRecycler", "onResponse: ${response.body()}")
-//            }
-//
-//            override fun onFailure(call: Call<ProductsData>, t: Throwable) {
-//                Log.d("ProductRecycler", "onResponse: $t")
-//            }
-//
-//        })
     }
