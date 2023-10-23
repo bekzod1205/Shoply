@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.ViewPager
+import coil.load
 import com.example.shoply.adapters.ViewPagerAdapterForPhotos
 import com.example.shoply.databinding.FragmentItemBinding
 import com.example.shoply.databinding.FragmentItemSelectedBinding
@@ -43,6 +44,18 @@ class ItemSelected : Fragment() {
 
 
         var binding = FragmentItemSelectedBinding.inflate(layoutInflater)
+
+
+        val product = arguments?.getSerializable("country") as Product
+        binding.imageView.load(product.images[1]) {
+            placeholder(R.drawable.ic_launcher_background)
+            error(androidx.appcompat.R.drawable.abc_btn_radio_material_anim)
+        }
+        binding.brand .text = product.brand
+
+        binding.name.text = product.title
+        binding.descriptionProduct.text = product.description
+        binding.price.text = product.price.toString()
         return binding.root
     }
 
