@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
-import com.example.shoply.adapter.ProductMoreInfoAdapter
 import com.example.shoply.adapter.ProductsAdapter
 import com.example.shoply.databinding.FragmentHomeBinding
 import retrofit2.Call
@@ -60,13 +59,19 @@ class HomeFragment : Fragment() {
         val api = APIClient.getInstance().create(APIService::class.java)
         api.getAllProduct().enqueue(object: retrofit2.Callback<ProductList> {
             override fun onResponse(call: Call<ProductList>, response: Response<ProductList>) {
-           var  products = response.body()?.products!!
+                var  products = response.body()?.products!!
                 binding.allProductsRv.adapter = ProductsAdapter(products, object : ProductsAdapter.ProductClicked{
                     override fun onClick(product: Product) {
-                        TODO("Not yet implemented")
+                        var bundle = Bundle()
+                        var fragment= ItemSelected()
+                        bundle.putSerializable("item", product)
+                        fragment.arguments = bundle
+                        parentFragmentManager.beginTransaction()
+                            .replace(R.id.containerFragments, fragment)
+                            .commit()
                     }
+                })
 
-                } )
             }
 
             override fun onFailure(call: Call<ProductList>, t: Throwable) {
@@ -74,15 +79,6 @@ class HomeFragment : Fragment() {
             }
         })
 
-
-        var adapter = ProductMoreInfoAdapter(products, object : ProductMoreInfoAdapter.MyProduct {
-            override fun onItemClick(product: Product) {
-                val bundle = bundleOf("product" to product)
-                findNavController().navigate(R.id.action_homeFragment_to_itemSelected, bundle)
-            }
-
-        }, requireActivity())
-        binding.allProductsRv.adapter = adapter
 
 
         return binding.root

@@ -51,6 +51,7 @@ class ProductsAdapter(private var products:MutableList<Product>,private val prod
 
     }
 
+
     interface ProductClicked {
         fun onClick(product: Product)
     }

@@ -46,5 +46,20 @@
         android:id="@+id/itemSelected"
         android:name="com.example.shoply.ItemSelected"
         android:label="fragment_item_selected"
-        tools:layout="@layout/fragment_item_selected" />
+        tools:layout="@layout/fragment_item_selected" >
+        <action
+            android:id="@+id/action_itemSelected_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_itemSelected_to_reviews"
+            app:destination="@id/reviews" />
+        <action
+            android:id="@+id/action_itemSelected_to_signIN"
+            app:destination="@id/signIN" />
+    </fragment>
+    <fragment
+        android:id="@+id/reviews"
+        android:name="com.example.shoply.Reviews"
+        android:label="fragment_reviews"
+        tools:layout="@layout/fragment_reviews" />
 </navigation>
