@@ -29,8 +29,10 @@ class ItemFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+ var products: MutableList<Product> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
@@ -42,30 +44,46 @@ class ItemFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var binding = FragmentItemBinding.inflate(layoutInflater)
-        binding.allProductsRv.layoutManager =
-        GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
-        val api = APIClient.getInstance().create(APIService::class.java)
-        api.getAllProduct().enqueue(object: retrofit2.Callback<ProductList> {
-            override fun onResponse(call: Call<ProductList>, response: Response<ProductList>) {
-                var products = response.body()?.plist!!
+        var binding = FragmentItemBinding.inflate(inflater, container, false)
+//        binding.allProductsRv.layoutManager =
+//            GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
 
-               // binding.allProductsRv.setHasFixedSize(true)
-                binding.allProductsRv.adapter  = ProductsAdapter(products,requireContext(),object:ProductsAdapter.ProductClicked{
-                    override fun onClick(product: Product) {
-                        TODO("Not yet implemented")
-                    }
+//
+//        products.add(Product("Samsung", "Phone", "jsadfbjkdsaf"))
+//        products.add(Product("Samsung", "Phone", "jsadfbjkdsaf"))
+//        products.add(Product("Samsung", "Phone", "jsadfbjkdsaf"))
+//        products.add(Product("Samsung", "Phone", "jsadfbjkdsaf"))
+//        products.add(Product("Samsung", "Phone", "jsadfbjkdsaf"))
+//        products.add(Product("Samsung", "Phone", "jsadfbjkdsaf"))
+//        binding.allProductsRv.adapter =
+//            ProductsAdapter(products, object : ProductsAdapter.ProductClicked {
+//                override fun onClick(product: Product) {
+//
+//                }
+//
+//            })
 
-                })
-
-            }
-
-            override fun onFailure(call: Call<ProductList>, t: Throwable) {
-                Log.d(TAG, "onFailure: $t")
-            }
-
-        })
-        return binding.root
+//        val api = APIClient.getInstance().create(APIService::class.java)
+//        api.getAllProduct().enqueue(object: retrofit2.Callback<ProductList> {
+//            override fun onResponse(call: Call<ProductList>, response: Response<ProductList>) {
+//                var products = response.body()?.plist!!
+//
+//               binding.allProductsRv.setHasFixedSize(true)
+//                binding.allProductsRv.adapter  = ProductsAdapter(products,object:ProductsAdapter.ProductClicked{
+//                    override fun onClick(product: Product) {
+//                        TODO("Not yet implemented")
+//                    }
+//
+//                })
+//
+//            }
+//
+//            override fun onFailure(call: Call<ProductList>, t: Throwable) {
+//                Log.d(TAG, "onFailure: $t")
+//            }
+//
+//        }
+         return binding.root
     }
 
     companion object {

@@ -1,11 +1,14 @@
 package com.example.shoply
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentHostCallback
+import com.example.shoply.adapter.ProductsAdapter
 import com.example.shoply.databinding.FragmentHomeBinding
 import com.google.android.material.navigation.NavigationBarItemView
 import retrofit2.Call
@@ -26,7 +29,7 @@ class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
+    lateinit var products: MutableList<Product>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -40,7 +43,37 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
        var binding = FragmentHomeBinding.inflate(layoutInflater)
-        parentFragmentManager.beginTransaction().replace(R.id.viewPager, ItemFragment())
+//        products.add(Product("Samsung", "Phone", "jsadfbjkdsaf"))
+//        products.add(Product("Samsung", "Phone", "jsadfbjkdsaf"))
+//        products.add(Product("Samsung", "Phone", "jsadfbjkdsaf"))
+//        products.add(Product("Samsung", "Phone", "jsadfbjkdsaf"))
+//        products.add(Product("Samsung", "Phone", "jsadfbjkdsaf"))
+//        products.add(Product("Samsung", "Phone", "jsadfbjkdsaf"))
+//        binding.allProductsRv.adapter =
+//            ProductsAdapter(products, object : ProductsAdapter.ProductClicked {
+//                override fun onClick(product: Product) {
+//
+//                }
+//
+//            })
+        products = mutableListOf()
+        val api = APIClient.getInstance().create(APIService::class.java)
+        api.getAllProduct().enqueue(object: retrofit2.Callback<ProductList> {
+            override fun onResponse(call: Call<ProductList>, response: Response<ProductList>) {
+           var  products = response.body()?.products!!
+                binding.allProductsRv.adapter = ProductsAdapter(products, object : ProductsAdapter.ProductClicked{
+                    override fun onClick(product: Product) {
+                        TODO("Not yet implemented")
+                    }
+
+                } )
+            }
+
+            override fun onFailure(call: Call<ProductList>, t: Throwable) {
+                Log.d(TAG, "onFailure: $t")
+            }
+        })
+
         return binding.root
     }
 
