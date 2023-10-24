@@ -1,25 +1,21 @@
-package com.example.shoply
+package com.example.shoply.UI
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.shoply.API.APIClient
 import com.example.shoply.API.APIService
+import com.example.shoply.ARG_PARAM1
+import com.example.shoply.ARG_PARAM2
 import com.example.shoply.adapter.ReviewAdapter
 import com.example.shoply.comment.Comment
 import com.example.shoply.comment.Commentdata
 import com.example.shoply.databinding.FragmentReviewsBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-class Reviews : Fragment() {
+class ReviewsFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
@@ -35,7 +31,7 @@ class Reviews : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentReviewsBinding.inflate(inflater,container,false)
+        val binding = FragmentReviewsBinding.inflate(inflater, container, false)
         var list = listOf<Comment>()
         var adapter: ReviewAdapter
 
@@ -61,7 +57,7 @@ class Reviews : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            Reviews().apply {
+            ReviewsFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

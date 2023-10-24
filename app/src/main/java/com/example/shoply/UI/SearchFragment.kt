@@ -1,28 +1,24 @@
-package com.example.shoply
+package com.example.shoply.UI
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView.OnQueryTextListener
+import android.widget.SearchView
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoply.API.APIClient
 import com.example.shoply.API.APIService
+import com.example.shoply.dataClass.Product
+import com.example.shoply.dataClass.ProductList
+import com.example.shoply.R
+import com.example.shoply.adapter.CategoryAdapter
 import com.example.shoply.adapter.ProductsAdapter
 import com.example.shoply.databinding.FragmentSearchBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
@@ -53,7 +49,7 @@ class SearchFragment : Fragment() {
         val api = APIClient.getInstance().create(APIService::class.java)
 
         // Search products
-        binding.searchView.setOnQueryTextListener(object : OnQueryTextListener {
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText == searchLast) return false
               //  else binding.notfound.visibility = View.VISIBLE
@@ -63,15 +59,17 @@ class SearchFragment : Fragment() {
                         response: Response<ProductList>
                     ) {
                         val products = response.body()?.products!!
-                        binding.rvAllProducts.adapter = ProductsAdapter(products, object : ProductsAdapter.ProductClicked {
-                            override fun onClick(product: Product) {
-                                val bundle = Bundle()
-                                bundle.putSerializable("item", product)
-                                findNavController().navigate(
-                                    R.id.action_mainFragment_to_itemSelected,
-                                    bundle)
-                            }
-                        })
+                        binding.rvAllProducts.adapter =
+                            ProductsAdapter(products, object : ProductsAdapter.ProductClicked {
+                                override fun onClick(product: Product) {
+                                    val bundle = Bundle()
+                                    bundle.putSerializable("item", product)
+                                    findNavController().navigate(
+                                        R.id.action_mainFragment_to_itemSelected,
+                                        bundle
+                                    )
+                                }
+                            })
 
                     }
 
@@ -116,21 +114,24 @@ class SearchFragment : Fragment() {
                     object : CategoryAdapter.OnCLick {
                         override fun onCLick(category: String) {
                             if (category == "") {
-                                api.getAllProduct().enqueue(object : Callback<ProductList>{
+                                api.getAllProduct().enqueue(object : Callback<ProductList> {
                                     override fun onResponse(
                                         call: Call<ProductList>,
                                         response: Response<ProductList>
                                     ) {
                                         val products = response.body()?.products!!
-                                        binding.rvAllProducts.adapter = ProductsAdapter(products, object : ProductsAdapter.ProductClicked {
-                                            override fun onClick(product: Product) {
-                                                val bundle = Bundle()
-                                                bundle.putSerializable("item", product)
-                                                findNavController().navigate(
-                                                    R.id.action_mainFragment_to_itemSelected,
-                                                    bundle)
-                                            }
-                                        })
+                                        binding.rvAllProducts.adapter = ProductsAdapter(
+                                            products,
+                                            object : ProductsAdapter.ProductClicked {
+                                                override fun onClick(product: Product) {
+                                                    val bundle = Bundle()
+                                                    bundle.putSerializable("item", product)
+                                                    findNavController().navigate(
+                                                        R.id.action_mainFragment_to_itemSelected,
+                                                        bundle
+                                                    )
+                                                }
+                                            })
 
                                     }
 
@@ -141,29 +142,36 @@ class SearchFragment : Fragment() {
 
                                 })
                             } else {
-                                api.getProductsByCategory(category).enqueue(object : Callback<ProductList> {
-                                    override fun onResponse(
-                                        call: Call<ProductList>,
-                                        response: Response<ProductList>
-                                    ) {
-                                        val products = response.body()?.products!!
-                                        binding.rvAllProducts.adapter = ProductsAdapter(products,  object : ProductsAdapter.ProductClicked {
-                                            override fun onClick(product: Product) {
-                                                val bundle = Bundle()
-                                                bundle.putSerializable("item", product)
-                                                findNavController().navigate(
-                                                    R.id.action_mainFragment_to_itemSelected,
-                                                    bundle)
-                                            }
-                                        })
+                                api.getProductsByCategory(category)
+                                    .enqueue(object : Callback<ProductList> {
+                                        override fun onResponse(
+                                            call: Call<ProductList>,
+                                            response: Response<ProductList>
+                                        ) {
+                                            val products = response.body()?.products!!
+                                            binding.rvAllProducts.adapter = ProductsAdapter(
+                                                products,
+                                                object : ProductsAdapter.ProductClicked {
+                                                    override fun onClick(product: Product) {
+                                                        val bundle = Bundle()
+                                                        bundle.putSerializable("item", product)
+                                                        findNavController().navigate(
+                                                            R.id.action_mainFragment_to_itemSelected,
+                                                            bundle
+                                                        )
+                                                    }
+                                                })
 
 
-                                    }
+                                        }
 
-                                    override fun onFailure(call: Call<ProductList>, t: Throwable) {
-                                        Log.d("TAG", "$t")
-                                    }
-                                })
+                                        override fun onFailure(
+                                            call: Call<ProductList>,
+                                            t: Throwable
+                                        ) {
+                                            Log.d("TAG", "$t")
+                                        }
+                                    })
                             }
                         }
 

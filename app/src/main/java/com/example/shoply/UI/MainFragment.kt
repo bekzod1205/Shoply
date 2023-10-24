@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import com.example.shoply.ARG_PARAM1
 import com.example.shoply.ARG_PARAM2
 import com.example.shoply.R
-import com.example.shoply.SearchFragment
 import com.example.shoply.databinding.FragmentMainBinding
 
 /**

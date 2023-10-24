@@ -8,10 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
-import com.example.shoply.Product
+import com.example.shoply.dataClass.Product
 import com.example.shoply.R
-import com.example.shoply.Reviews
-import com.example.shoply.SignIn
 import com.example.shoply.adapter.ViewPagerAdapter
 import com.example.shoply.databinding.FragmentItemSelectedBinding
 
@@ -49,7 +47,7 @@ class ItemSelected : Fragment() {
             if (str.isNullOrEmpty())
             parentFragmentManager.beginTransaction().replace(
                 R.id.containerFragments,
-                SignIn.newInstance(item, "")
+                SignInFragment.newInstance(item, "")
             ).commit()
             else parentFragmentManager.beginTransaction().replace(
                 R.id.containerFragments,
@@ -57,7 +55,7 @@ class ItemSelected : Fragment() {
             ).commit()
         }
         binding.readReviews.setOnClickListener {
-            parentFragmentManager.beginTransaction().replace(R.id.containerFragments, Reviews()).commit()
+            parentFragmentManager.beginTransaction().replace(R.id.containerFragments, ReviewsFragment()).commit()
         }
         binding.readReviews.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_reviews)

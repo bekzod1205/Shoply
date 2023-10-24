@@ -11,17 +11,12 @@ import com.example.shoply.API.APIClient
 import com.example.shoply.API.APIService
 import com.example.shoply.ARG_PARAM1
 import com.example.shoply.ARG_PARAM2
-import com.example.shoply.Product
-import com.example.shoply.ProductList
+import com.example.shoply.dataClass.Product
+import com.example.shoply.dataClass.ProductList
 import com.example.shoply.R
 import com.example.shoply.adapter.ProductsAdapter
 import com.example.shoply.databinding.FragmentHomeBinding
 
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -40,20 +35,6 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
        var binding = FragmentHomeBinding.inflate(layoutInflater)
-//        products.add(Product("Samsung", "Phone", "jsadfbjkdsaf"))
-//        products.add(Product("Samsung", "Phone", "jsadfbjkdsaf"))
-//        products.add(Product("Samsung", "Phone", "jsadfbjkdsaf"))
-//        products.add(Product("Samsung", "Phone", "jsadfbjkdsaf"))
-//        products.add(Product("Samsung", "Phone", "jsadfbjkdsaf"))
-//        products.add(Product("Samsung", "Phone", "jsadfbjkdsaf"))
-//        binding.allProductsRv.adapter =
-//            ProductsAdapter(products, object : ProductsAdapter.ProductClicked {
-//                override fun onClick(product: Product) {
-//
-//                }
-//
-//            })
-
 
         products = mutableListOf()
         val api = APIClient.getInstance().create(APIService::class.java)
@@ -86,15 +67,7 @@ class HomeFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
+
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             HomeFragment().apply {

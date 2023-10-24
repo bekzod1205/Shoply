@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.shoply.ARG_PARAM1
 import com.example.shoply.ARG_PARAM2
-import com.example.shoply.Product
+import com.example.shoply.dataClass.Product
 import com.example.shoply.R
 import com.example.shoply.adapter.OrderAdapter
 import com.example.shoply.databinding.FragmentOrderBinding

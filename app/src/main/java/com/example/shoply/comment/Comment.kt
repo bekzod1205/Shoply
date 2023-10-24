@@ -1,6 +1,6 @@
 package com.example.shoply.comment
 
-import com.example.shoply.user.CommentUser
+import com.example.shoply.dataClass.CommentUser
 
 data class Comment(
     val body: String,
