@@ -10,11 +10,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
-import com.example.shoply.databinding.ActivityMainBinding
+import com.example.shoply.API.APIClient
+import com.example.shoply.API.APIService
+import com.example.shoply.UI.OrderFragment
 import com.example.shoply.databinding.FragmentSignINBinding
 import com.example.shoply.databinding.NavHeaderBinding
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,7 +23,7 @@ import retrofit2.Response
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-class SignIN : Fragment() {
+class SignIn : Fragment() {
     private var param1: Product? = null
     private var param2: String? = null
     lateinit var  username : String
@@ -63,7 +64,8 @@ class SignIN : Fragment() {
                         binding_mainac.userName.text = user.firstName
                         binding_mainac.userImage.load(user.image)
                         binding_mainac.phoneNumber.text = user.email
-                        parentFragmentManager.beginTransaction().replace(R.id.containerFragments,OrderFragment.newInstance(param1!!,"")).commit()
+                        parentFragmentManager.beginTransaction().replace(R.id.containerFragments,
+                            OrderFragment.newInstance(param1!!,"")).commit()
                         edit.putString("User",gson.toJson(user)).apply()
                     }
                     else{
@@ -86,7 +88,7 @@ class SignIN : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance(param1: Product, param2: String) =
-            SignIN().apply {
+            SignIn().apply {
                 arguments = Bundle().apply {
                     putSerializable(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

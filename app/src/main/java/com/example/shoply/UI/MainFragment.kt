@@ -1,18 +1,15 @@
-package com.example.shoply
+package com.example.shoply.UI
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentManager
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.Fragment
+import com.example.shoply.ARG_PARAM1
+import com.example.shoply.ARG_PARAM2
+import com.example.shoply.R
+import com.example.shoply.SearchFragment
 import com.example.shoply.databinding.FragmentMainBinding
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
@@ -40,14 +37,23 @@ class MainFragment : Fragment() {
         parentFragmentManager.beginTransaction().add(R.id.containerFragments, HomeFragment()).commit()
         binding.bottomNav.setOnNavigationItemSelectedListener {
             when(it.itemId){
-                R.id.home-> parentFragmentManager.beginTransaction().replace(R.id.containerFragments, HomeFragment()).commit()
-                R.id.order-> parentFragmentManager.beginTransaction().replace(R.id.containerFragments, OrderFragment()).commit()
+                R.id.home -> parentFragmentManager.beginTransaction().replace(
+                    R.id.containerFragments,
+                    HomeFragment()
+                ).commit()
+                R.id.order -> parentFragmentManager.beginTransaction().replace(
+                    R.id.containerFragments,
+                    OrderFragment()
+                ).commit()
             }
              true
         }
 
         binding.search.setOnClickListener {
-            parentFragmentManager.beginTransaction().replace(R.id.containerFragments, SearchFragment()).commit()
+            parentFragmentManager.beginTransaction().replace(
+                R.id.containerFragments,
+                SearchFragment()
+            ).commit()
         }
         return binding.root
     }

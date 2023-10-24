@@ -1,4 +1,4 @@
-package com.example.shoply
+package com.example.shoply.UI
 
 import android.content.Context
 import android.os.Bundle
@@ -8,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
+import com.example.shoply.Product
+import com.example.shoply.R
+import com.example.shoply.Reviews
+import com.example.shoply.SignIn
 import com.example.shoply.adapter.ViewPagerAdapter
 import com.example.shoply.databinding.FragmentItemSelectedBinding
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 
 
 class ItemSelected : Fragment() {
@@ -45,11 +47,17 @@ class ItemSelected : Fragment() {
 
         binding.buyNow.setOnClickListener {
             if (str.isNullOrEmpty())
-            parentFragmentManager.beginTransaction().replace(R.id.containerFragments,SignIN.newInstance(item,"")).commit()
-            else parentFragmentManager.beginTransaction().replace(R.id.containerFragments,OrderFragment.newInstance(item,"")).commit()
+            parentFragmentManager.beginTransaction().replace(
+                R.id.containerFragments,
+                SignIn.newInstance(item, "")
+            ).commit()
+            else parentFragmentManager.beginTransaction().replace(
+                R.id.containerFragments,
+                OrderFragment.newInstance(item, "")
+            ).commit()
         }
         binding.readReviews.setOnClickListener {
-            parentFragmentManager.beginTransaction().replace(R.id.containerFragments,Reviews()).commit()
+            parentFragmentManager.beginTransaction().replace(R.id.containerFragments, Reviews()).commit()
         }
         binding.readReviews.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_reviews)

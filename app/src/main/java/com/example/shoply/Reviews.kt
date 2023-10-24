@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.shoply.API.APIClient
+import com.example.shoply.API.APIService
 import com.example.shoply.adapter.ReviewAdapter
 import com.example.shoply.comment.Comment
 import com.example.shoply.comment.Commentdata

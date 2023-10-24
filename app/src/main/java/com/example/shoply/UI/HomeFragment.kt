@@ -1,25 +1,21 @@
-package com.example.shoply
+package com.example.shoply.UI
 
-import android.content.ContentValues.TAG
-import android.content.Context
+import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.Fragment
+import com.example.shoply.API.APIClient
+import com.example.shoply.API.APIService
+import com.example.shoply.ARG_PARAM1
+import com.example.shoply.ARG_PARAM2
+import com.example.shoply.Product
+import com.example.shoply.ProductList
+import com.example.shoply.R
 import com.example.shoply.adapter.ProductsAdapter
 import com.example.shoply.databinding.FragmentHomeBinding
-import com.google.gson.Gson
-import retrofit2.Call
-import retrofit2.Response
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
@@ -64,22 +60,23 @@ class HomeFragment : Fragment() {
         api.getAllProduct().enqueue(object: retrofit2.Callback<ProductList> {
             override fun onResponse(call: Call<ProductList>, response: Response<ProductList>) {
                 var  products = response.body()?.products!!
-                binding.allProductsRv.adapter = ProductsAdapter(products, object : ProductsAdapter.ProductClicked{
-                    override fun onClick(product: Product) {
-                        var bundle = Bundle()
-                        var fragment= ItemSelected()
-                        bundle.putSerializable("item", product)
-                        fragment.arguments = bundle
-                        parentFragmentManager.beginTransaction()
-                            .replace(R.id.containerFragments, fragment)
-                            .commit()
-                    }
-                })
+                binding.allProductsRv.adapter =
+                    ProductsAdapter(products, object : ProductsAdapter.ProductClicked {
+                        override fun onClick(product: Product) {
+                            var bundle = Bundle()
+                            var fragment = ItemSelected()
+                            bundle.putSerializable("item", product)
+                            fragment.arguments = bundle
+                            parentFragmentManager.beginTransaction()
+                                .replace(R.id.containerFragments, fragment)
+                                .commit()
+                        }
+                    })
 
             }
 
             override fun onFailure(call: Call<ProductList>, t: Throwable) {
-                Log.d(TAG, "onFailure: $t")
+                Log.d(ContentValues.TAG, "onFailure: $t")
             }
         })
 
