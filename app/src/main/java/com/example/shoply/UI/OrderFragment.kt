@@ -1,19 +1,16 @@
-package com.example.shoply
+package com.example.shoply.UI
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.Fragment
+import com.example.shoply.ARG_PARAM1
+import com.example.shoply.ARG_PARAM2
+import com.example.shoply.dataClass.Product
+import com.example.shoply.R
 import com.example.shoply.adapter.OrderAdapter
-import com.example.shoply.databinding.FragmentMainBinding
 import com.example.shoply.databinding.FragmentOrderBinding
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
@@ -51,7 +48,10 @@ class OrderFragment : Fragment() {
 
 
         binding.start.setOnClickListener {
-            parentFragmentManager.beginTransaction().replace(R.id.containerFragments,HomeFragment()).commit()
+            parentFragmentManager.beginTransaction().replace(
+                R.id.containerFragments,
+                HomeFragment()
+            ).commit()
         }
         return binding.root
     }

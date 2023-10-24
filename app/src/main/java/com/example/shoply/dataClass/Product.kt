@@ -1,4 +1,4 @@
-package com.example.shoply
+package com.example.shoply.dataClass
 
 import java.io.Serializable
 

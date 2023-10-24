@@ -7,9 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.shoply.Product
+import com.example.shoply.dataClass.Product
 import com.example.shoply.R
-import com.example.shoply.databinding.OrderItemBinding
 
 class OrderAdapter(val list: MutableList<Product>) :
     RecyclerView.Adapter<OrderAdapter.OrderHolder>() {
