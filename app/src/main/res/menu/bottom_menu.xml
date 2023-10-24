@@ -11,7 +11,7 @@
     <item
         android:id="@+id/order"
         android:icon="@drawable/baseline_access_time_24"
-        android:title="Shaxsiy kabinet" />
+        android:title="Orders" />
     <item
         android:id="@+id/profile"
         android:icon="@drawable/person_icon"

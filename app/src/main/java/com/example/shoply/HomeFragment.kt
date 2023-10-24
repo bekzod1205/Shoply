@@ -8,11 +8,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.example.shoply.adapter.ProductsAdapter
 import com.example.shoply.databinding.FragmentHomeBinding
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import retrofit2.Call
 import retrofit2.Response
 
@@ -43,38 +46,42 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-       var binding = FragmentHomeBinding.inflate(layoutInflater)
-//        products.add(Product("Samsung", "Phone", "jsadfbjkdsaf"))
-//        products.add(Product("Samsung", "Phone", "jsadfbjkdsaf"))
-//        products.add(Product("Samsung", "Phone", "jsadfbjkdsaf"))
-//        products.add(Product("Samsung", "Phone", "jsadfbjkdsaf"))
-//        products.add(Product("Samsung", "Phone", "jsadfbjkdsaf"))
-//        products.add(Product("Samsung", "Phone", "jsadfbjkdsaf"))
-//        binding.allProductsRv.adapter =
-//            ProductsAdapter(products, object : ProductsAdapter.ProductClicked {
-//                override fun onClick(product: Product) {
-//
-//                }
-//
-//            })
-
-
+        var binding = FragmentHomeBinding.inflate(layoutInflater)
         products = mutableListOf()
+        var order = mutableListOf<Product>()
+        val gson = Gson()
+        val activity: AppCompatActivity = activity as AppCompatActivity
+        val cache = activity.getSharedPreferences("Cache", Context.MODE_PRIVATE)
+        val edit = cache.edit()
+        val type = object : TypeToken<List<Product>>() {}.type
+
+
         val api = APIClient.getInstance().create(APIService::class.java)
-        api.getAllProduct().enqueue(object: retrofit2.Callback<ProductList> {
+        api.getAllProduct().enqueue(object : retrofit2.Callback<ProductList> {
             override fun onResponse(call: Call<ProductList>, response: Response<ProductList>) {
-                var  products = response.body()?.products!!
-                binding.allProductsRv.adapter = ProductsAdapter(products, object : ProductsAdapter.ProductClicked{
-                    override fun onClick(product: Product) {
-                        var bundle = Bundle()
-                        var fragment= ItemSelected()
-                        bundle.putSerializable("item", product)
-                        fragment.arguments = bundle
-                        parentFragmentManager.beginTransaction()
-                            .replace(R.id.containerFragments, fragment)
-                            .commit()
-                    }
-                })
+                var products = response.body()?.products!!
+                binding.allProductsRv.adapter =
+                    ProductsAdapter(products, object : ProductsAdapter.ProductClicked {
+                        override fun onClick(product: Product) {
+                            var bundle = Bundle()
+                            var fragment = ItemSelected()
+                            bundle.putSerializable("item", product)
+                            fragment.arguments = bundle
+                            parentFragmentManager.beginTransaction()
+                                .replace(R.id.containerFragments, fragment)
+                                .commit()
+
+
+                        }
+
+                        override fun onSelected(product: Product) {
+                            if (cache.getString("orders", "")!!.isNotEmpty())
+                                order = gson.fromJson(cache.getString("orders", ""), type)
+                            order.add(product)
+                            Log.d("TAG", "onSelected: ${product.id}")
+                            edit.putString("orders", gson.toJson(order)).apply()
+                        }
+                    })
 
             }
 

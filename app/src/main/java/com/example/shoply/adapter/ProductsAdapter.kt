@@ -58,12 +58,16 @@ class ProductsAdapter(
         holder.itemView.setOnClickListener {
             productClicked.onClick(product)
         }
+        holder.fav.setOnClickListener {
+            productClicked.onSelected(product)
+        }
 
     }
 
 
     interface ProductClicked {
         fun onClick(product: Product)
+        fun onSelected(product: Product)
     }
 }
 

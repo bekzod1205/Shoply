@@ -1,14 +1,25 @@
 package com.example.shoply
 
+import android.content.ContentValues
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.ui.text.toLowerCase
+import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.findNavController
 import com.example.shoply.adapter.OrderAdapter
+import com.example.shoply.adapter.ProductsAdapter
 import com.example.shoply.databinding.FragmentMainBinding
 import com.example.shoply.databinding.FragmentOrderBinding
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import retrofit2.Call
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -38,20 +49,68 @@ class OrderFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentOrderBinding.inflate(inflater, container, false)
-        val list = mutableListOf<Product>()
-        if (list.isEmpty()) {
-            binding.linearLayout.visibility = View.VISIBLE
-            binding.constraint.visibility = View.INVISIBLE
-        } else {
+        var orders = mutableListOf<Product>()
+        var products = mutableListOf<Product>()
+
+        val gson = Gson()
+        val activity: AppCompatActivity = activity as AppCompatActivity
+        val cache = activity.getSharedPreferences("Cache", Context.MODE_PRIVATE)
+        val edit = cache.edit()
+        val type = object : TypeToken<List<Product>>() {}.type
+
+        val str = cache.getString("orders", "")
+        if (str!!.isNotEmpty())
+            orders = gson.fromJson(str, type)
+
+        if (orders.isNotEmpty()) {
             binding.linearLayout.visibility = View.INVISIBLE
             binding.constraint.visibility = View.VISIBLE
-            val adapter = OrderAdapter(list)
-            binding.orderRv.adapter = adapter
+            binding.orderRv.adapter = OrderAdapter(orders, object : OrderAdapter.OnSelected {
+                override fun onClick(product: Product) {
+                    orders.remove(product)
+                    edit.putString("orders", gson.toJson(orders)).apply()
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.containerFragments, OrderFragment())
+                        .commit()
+                }
+
+                override fun onTrack(product: Product) {
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.containerFragments, SignIN())
+                        .commit()
+                }
+
+            })
         }
 
+        binding.search.addTextChangedListener {
+            var listt = mutableListOf<Product>()
+            for (i in orders) {
+                if (i.brand.toLowerCase().contains(it.toString().toLowerCase())) {
+                    listt.add(i)
+                }
+            }
+            binding.orderRv.adapter = OrderAdapter(listt, object : OrderAdapter.OnSelected {
+                override fun onClick(product: Product) {
+                    orders.remove(product)
+                    edit.putString("orders", gson.toJson(orders)).apply()
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.containerFragments, OrderFragment())
+                        .commit()
+                }
+
+                override fun onTrack(product: Product) {
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.containerFragments, SignIN())
+                        .commit()
+                }
+
+            })
+        }
 
         binding.start.setOnClickListener {
-            parentFragmentManager.beginTransaction().replace(R.id.containerFragments,HomeFragment()).commit()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.containerFragments, HomeFragment()).commit()
         }
         return binding.root
     }
