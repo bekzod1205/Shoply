@@ -52,7 +52,7 @@ class ItemSelected : Fragment() {
             parentFragmentManager.beginTransaction().replace(R.id.containerFragments,Reviews()).commit()
         }
         binding.readReviews.setOnClickListener {
-            findNavController().navigate(R.id.action_itemSelected_to_reviews)
+            findNavController().navigate(R.id.action_mainFragment_to_reviews)
         }
         return binding.root
     }
