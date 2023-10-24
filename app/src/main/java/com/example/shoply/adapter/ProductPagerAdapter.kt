@@ -3,7 +3,6 @@ package com.example.shoply.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.shoply.ItemFragment
 
 class ProductPagerAdapter(fa: FragmentActivity, var categories:List<String>):FragmentStateAdapter(fa) {
     override fun getItemCount(): Int {

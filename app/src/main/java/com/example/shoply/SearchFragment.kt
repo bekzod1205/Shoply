@@ -1,6 +1,5 @@
 package com.example.shoply
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,7 +11,7 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.shoply.adapter.CategoryAdapter
 import com.example.shoply.adapter.ProductsAdapter
 import com.example.shoply.databinding.FragmentSearchBinding
 import retrofit2.Call
