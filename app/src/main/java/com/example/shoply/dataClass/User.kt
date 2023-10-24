@@ -1,4 +1,4 @@
-package com.example.shoply.user
+package com.example.shoply.dataClass
 
 data class User(
     val email: String,

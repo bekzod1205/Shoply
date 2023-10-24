@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.shoply.HomeFragment"
+        android:name="com.example.shoply.UI.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.shoply.MainFragment"
+        android:name="com.example.shoply.UI.MainFragment"
         android:label="MainFragment" >
         <action
             android:id="@+id/action_mainFragment_to_homeFragment"
@@ -26,15 +26,18 @@
         <action
             android:id="@+id/action_mainFragment_to_itemSelected"
             app:destination="@id/itemSelected" />
+        <action
+            android:id="@+id/action_mainFragment_to_reviews"
+            app:destination="@id/reviews" />
     </fragment>
     <fragment
         android:id="@+id/signIN"
-        android:name="com.example.shoply.SignIN"
+        android:name="com.example.shoply.UI.SignInFragment"
         android:label="fragment_sign_i_n"
         tools:layout="@layout/fragment_sign_i_n" />
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.shoply.SearchFragment"
+        android:name="com.example.shoply.UI.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
         <action
@@ -43,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/itemSelected"
-        android:name="com.example.shoply.ItemSelected"
+        android:name="com.example.shoply.UI.ItemSelected"
         android:label="fragment_item_selected"
         tools:layout="@layout/fragment_item_selected" >
         <action
@@ -55,7 +58,7 @@
     </fragment>
     <fragment
         android:id="@+id/reviews"
-        android:name="com.example.shoply.Reviews"
+        android:name="com.example.shoply.UI.ReviewsFragment"
         android:label="fragment_reviews"
         tools:layout="@layout/fragment_reviews" />
 </navigation>

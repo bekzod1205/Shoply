@@ -5,7 +5,7 @@
     android:id="@+id/itemSelected"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ItemSelected">
+    tools:context=".UI.ItemSelected">
 
     <!--        <androidx.appcompat.widget.AppCompatImageButton-->
     <!--            android:id="@+id/back_from_single_product"-->

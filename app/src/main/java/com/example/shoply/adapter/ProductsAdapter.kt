@@ -1,24 +1,16 @@
 package com.example.shoply.adapter
 
 
-import android.R.attr.name
-import android.content.Context
-import android.content.Context.MODE_PRIVATE
-import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.shoply.Product
+import com.example.shoply.dataClass.Product
 import com.example.shoply.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import kotlin.math.roundToInt
 
 

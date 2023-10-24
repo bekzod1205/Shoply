@@ -1,5 +1,8 @@
-package com.example.shoply
+package com.example.shoply.API
 
+import com.example.shoply.dataClass.Login
+import com.example.shoply.dataClass.Product
+import com.example.shoply.dataClass.ProductList
 import com.example.shoply.comment.Commentdata
 import retrofit2.Call
 import retrofit2.http.Body
