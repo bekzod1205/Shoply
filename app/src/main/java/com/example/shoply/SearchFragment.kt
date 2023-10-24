@@ -66,9 +66,9 @@ class SearchFragment : Fragment() {
                         binding.rvAllProducts.adapter = ProductsAdapter(products, object : ProductsAdapter.ProductClicked {
                             override fun onClick(product: Product) {
                                 val bundle = Bundle()
-                                bundle.putSerializable("product", product)
+                                bundle.putSerializable("item", product)
                                 findNavController().navigate(
-                                    R.id.action_searchFragment_to_itemSelected,
+                                    R.id.action_mainFragment_to_itemSelected,
                                     bundle)
                             }
                         })
@@ -125,9 +125,9 @@ class SearchFragment : Fragment() {
                                         binding.rvAllProducts.adapter = ProductsAdapter(products, object : ProductsAdapter.ProductClicked {
                                             override fun onClick(product: Product) {
                                                 val bundle = Bundle()
-                                                bundle.putSerializable("product", product)
+                                                bundle.putSerializable("item", product)
                                                 findNavController().navigate(
-                                                    R.id.action_searchFragment_to_itemSelected,
+                                                    R.id.action_mainFragment_to_itemSelected,
                                                     bundle)
                                             }
                                         })
@@ -150,9 +150,9 @@ class SearchFragment : Fragment() {
                                         binding.rvAllProducts.adapter = ProductsAdapter(products,  object : ProductsAdapter.ProductClicked {
                                             override fun onClick(product: Product) {
                                                 val bundle = Bundle()
-                                                bundle.putSerializable("product", product)
+                                                bundle.putSerializable("item", product)
                                                 findNavController().navigate(
-                                                    R.id.action_searchFragment_to_itemSelected,
+                                                    R.id.action_mainFragment_to_itemSelected,
                                                     bundle)
                                             }
                                         })

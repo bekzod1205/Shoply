@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_mainFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_itemSelected"
+            app:destination="@id/itemSelected" />
     </fragment>
     <fragment
         android:id="@+id/signIN"

@@ -28,8 +28,11 @@ class ItemSelected : Fragment() {
         val cache = activity.getSharedPreferences("Cache", Context.MODE_PRIVATE)
         val str = cache.getString("User","")
         var item = arguments?.getSerializable("item") as Product
+
+
         binding.productImageVp.adapter = ViewPagerAdapter(
             item!!.images
+
         )
 
         binding.descriptionProduct.text = item!!.description
@@ -37,6 +40,8 @@ class ItemSelected : Fragment() {
         binding.brand.text=item!!.brand
         binding.price.text = item!!.price.toString() + ".00$"
         binding.rating.text = item!!.rating.toString()
+
+
 
         binding.buyNow.setOnClickListener {
             if (str.isNullOrEmpty())
